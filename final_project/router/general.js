@@ -11,10 +11,11 @@ public_users.post("/register", (req,res) => {
   if (!username || !password) {
     return res.status(400).json({message: "Username and password are required"});
   }
-  if (users[username]) {
+  if (isValid(username)) {
     return res.status(409).json({message: "User already exists"});
   }
-  users[username] = { password: password };
+  // Register the user
+  users.push({ username, password }); 
   return res.status(201).json({message: "User registered successfully"});
 });
 
